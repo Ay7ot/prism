@@ -117,13 +117,13 @@ export default function ExecutiveDashboardPage() {
             </div>
           </div>
 
-        {/* Map Container */}
-        <div className="relative bg-[#212121] rounded-[12px] overflow-hidden mb-6" style={{ height: "532px" }}>
-          <NigeriaMapReal
-            selectedPlant={selectedPlant}
-            onPlantClick={setSelectedPlant}
-            className="absolute inset-0"
-          />
+          {/* Map Container */}
+          <div className="relative bg-[#212121] rounded-[12px] overflow-hidden mb-6" style={{ height: "532px" }}>
+            <NigeriaMapReal
+              selectedPlant={selectedPlant}
+              onPlantClick={setSelectedPlant}
+              className="absolute inset-0"
+            />
 
             {/* Plant Popup Card */}
             {currentPlant && (

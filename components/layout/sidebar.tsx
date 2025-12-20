@@ -6,17 +6,11 @@ import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
   Building2,
-  FileText,
-  Users,
-  MessageSquare,
+  Sparkles,
+  Activity,
+  BadgeDollarSign,
   Settings,
   Bell,
-  HelpCircle,
-  Calendar,
-  ClipboardList,
-  Zap,
-  Shield,
-  TrendingUp,
 } from "lucide-react";
 
 interface SidebarItem {
@@ -29,25 +23,19 @@ interface SidebarItem {
 const engineerItems: SidebarItem[] = [
   { icon: LayoutDashboard, href: "/dashboard", label: "Overview" },
   { icon: Building2, href: "/dashboard/plants", label: "Plants" },
-  { icon: FileText, href: "/dashboard/reports", label: "Reports" },
-  { icon: ClipboardList, href: "/dashboard/maintenance", label: "Maintenance" },
-  { icon: Users, href: "/dashboard/team", label: "Team" },
-  { icon: MessageSquare, href: "/dashboard/messages", label: "Messages", badge: 3 },
+  { icon: Sparkles, href: "/dashboard/predictive", label: "Predictive Analytics" },
+  { icon: Activity, href: "/dashboard/asset-health", label: "Asset Health" },
+  { icon: BadgeDollarSign, href: "/dashboard/financial", label: "Revenue Protection" },
   { icon: Bell, href: "/dashboard/notifications", label: "Notifications", badge: 5 },
-  { icon: Calendar, href: "/dashboard/schedule", label: "Schedule" },
   { icon: Settings, href: "/dashboard/settings", label: "Settings" },
-  { icon: HelpCircle, href: "/dashboard/help", label: "Help" },
 ];
 
 const executiveItems: SidebarItem[] = [
-  { icon: LayoutDashboard, href: "/dashboard/executive", label: "Overview" },
-  { icon: Building2, href: "/dashboard/executive?view=plants", label: "Plants" },
-  { icon: Users, href: "/dashboard/executive?view=workforce", label: "Workforce" },
-  { icon: FileText, href: "/dashboard/executive?view=contracts", label: "Contracts" },
-  { icon: Zap, href: "/dashboard/executive?view=grid", label: "Grid" },
-  { icon: ClipboardList, href: "/dashboard/executive?view=operations", label: "O&M" },
-  { icon: TrendingUp, href: "/dashboard/executive?view=finance", label: "Finance" },
-  { icon: Shield, href: "/dashboard/executive?view=compliance", label: "Compliance" },
+  { icon: LayoutDashboard, href: "/dashboard/executive", label: "Executive Overview" },
+  { icon: BadgeDollarSign, href: "/dashboard/financial", label: "ROI & Revenue" },
+  { icon: Sparkles, href: "/dashboard/predictive", label: "Predictive Analytics" },
+  { icon: Activity, href: "/dashboard/asset-health", label: "Asset Health" },
+  { icon: Building2, href: "/dashboard/plants", label: "Plants" },
   { icon: Bell, href: "/dashboard/notifications", label: "Alerts", badge: 8 },
   { icon: Settings, href: "/dashboard/settings", label: "Settings" },
 ];
