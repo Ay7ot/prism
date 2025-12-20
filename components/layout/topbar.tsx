@@ -9,12 +9,14 @@ interface TopbarProps {
   userName?: string;
   userRole?: string;
   className?: string;
+  onMobileMenuToggle?: () => void;
 }
 
 export function Topbar({
   userName = "Chloe Milagres",
   userRole = "Engineer",
   className,
+  onMobileMenuToggle,
 }: TopbarProps) {
   return (
     <header
@@ -44,7 +46,10 @@ export function Topbar({
         </button>
 
         {/* Mobile Menu Button */}
-        <button className="lg:hidden w-[42px] h-[42px] rounded-full bg-white/5 flex items-center justify-center text-white/60 hover:text-white hover:bg-white/10 transition-colors">
+        <button
+          onClick={onMobileMenuToggle}
+          className="lg:hidden w-[42px] h-[42px] rounded-full bg-white/5 flex items-center justify-center text-white/60 hover:text-white hover:bg-white/10 transition-colors"
+        >
           <Menu size={20} />
         </button>
 
