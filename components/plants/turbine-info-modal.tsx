@@ -66,10 +66,23 @@ export function TurbineInfoModal({
               {turbine.model}
             </p>
             <p className="text-[#eeac1d] text-[11px] font-light font-outfit">
-              {turbine.type}
+              {turbine.manufacturer}
             </p>
             <p className="text-[#eeac1d] text-[11px] font-light font-outfit">
-              {turbine.serialNumber}
+              {turbine.type}
+            </p>
+            <p className="text-[#a5a4a4] text-[10px] font-light font-outfit">
+              S/N: {turbine.serialNumber}
+            </p>
+          </div>
+
+          {/* Control System */}
+          <div className="flex flex-col gap-1.5 shrink-0">
+            <p className="text-white text-[12px] font-medium font-inter tracking-[-0.154px]">
+              Control System
+            </p>
+            <p className="text-[#eeac1d] text-[11px] font-light font-outfit">
+              {turbine.controlSystem}
             </p>
           </div>
 

@@ -222,7 +222,7 @@ export default function TurbineDetailPage({
                                     <span className={cn(isGasTurbine ? "text-[#ee1d1d]" : "text-[#eeac1d]")}>
                                         {turbine.metrics.temperature.value}
                                     </span>{" "}
-                                    <span className="text-[#a5a4a4]">°F</span>
+                                    <span className="text-[#a5a4a4]">°C</span>
                                 </p>
                                 <div className="space-y-0">
                                     <div className="flex items-center gap-3.5 text-xs font-medium font-outfit">
@@ -230,7 +230,7 @@ export default function TurbineDetailPage({
                                         <span className="text-[#eeac1d]">
                                             <span className="text-[#a5a4a4]">&gt;</span>{" "}
                                             {turbine.metrics.temperature.high}{" "}
-                                            <span className="text-[#a5a4a4]">°F</span>
+                                            <span className="text-[#a5a4a4]">°C</span>
                                         </span>
                                     </div>
                                     <div className="flex items-center gap-3.5 text-xs font-medium font-outfit">
@@ -238,7 +238,7 @@ export default function TurbineDetailPage({
                                         <span className="text-[#eeac1d]">
                                             <span className="text-[#a5a4a4]">&lt;</span>{" "}
                                             {turbine.metrics.temperature.cool}{" "}
-                                            <span className="text-[#a5a4a4]">°F</span>
+                                            <span className="text-[#a5a4a4]">°C</span>
                                         </span>
                                     </div>
                                 </div>
@@ -367,7 +367,7 @@ export default function TurbineDetailPage({
                                     <span className={cn(isGasTurbine ? "text-[#ee1d1d]" : "text-[#eeac1d]")}>
                                         {turbine.metrics.temperature.value}
                                     </span>{" "}
-                                    <span className="text-[#a5a4a4]">°F</span>
+                                    <span className="text-[#a5a4a4]">°C</span>
                                 </p>
                                 <div className="space-y-0">
                                     <div className="flex items-center gap-3.5 text-xs font-medium font-outfit">
@@ -375,7 +375,7 @@ export default function TurbineDetailPage({
                                         <span className="text-[#eeac1d]">
                                             <span className="text-[#a5a4a4]">&gt;</span>{" "}
                                             {turbine.metrics.temperature.high}{" "}
-                                            <span className="text-[#a5a4a4]">°F</span>
+                                            <span className="text-[#a5a4a4]">°C</span>
                                         </span>
                                     </div>
                                     <div className="flex items-center gap-3.5 text-xs font-medium font-outfit">
@@ -383,7 +383,7 @@ export default function TurbineDetailPage({
                                         <span className="text-[#eeac1d]">
                                             <span className="text-[#a5a4a4]">&lt;</span>{" "}
                                             {turbine.metrics.temperature.cool}{" "}
-                                            <span className="text-[#a5a4a4]">°F</span>
+                                            <span className="text-[#a5a4a4]">°C</span>
                                         </span>
                                     </div>
                                 </div>

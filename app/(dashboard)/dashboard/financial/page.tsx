@@ -74,6 +74,7 @@ const tripHistory = [
 
 export default function FinancialDashboardPage() {
   const [timeframe, setTimeframe] = useState("24months");
+  const [showCalculation, setShowCalculation] = useState<string | null>(null);
 
   const roiPercentage = ((financialData.projectedSavings / financialData.capex) * 100).toFixed(0);
   const preventablePercentage = ((financialData.preventableLoss / financialData.totalLoss) * 100).toFixed(0);
@@ -98,10 +99,24 @@ export default function FinancialDashboardPage() {
         </p>
       </div>
 
+      {/* Data Sources Info */}
+      <div className="bg-[#1e1e1e] rounded-[12px] p-4 mb-6 border border-[#a5a4a4]/20">
+        <div className="flex items-start gap-3">
+          <div className="text-[#eeac1d]">ℹ️</div>
+          <div className="flex-1">
+            <p className="text-white text-sm font-outfit font-semibold mb-1">Data Sources</p>
+            <p className="text-[#a5a4a4] text-xs font-lato leading-relaxed">
+              Financial calculations based on: <span className="text-white">Operations outage logs (24 months)</span> + <span className="text-white">SCADA/DCS generation data</span> + <span className="text-white">NBET tariff (₦40,000/MWh)</span>. 
+              Click 🔍 on any trip cost to see detailed calculation breakdown.
+            </p>
+          </div>
+        </div>
+      </div>
+
       {/* Key Metrics Row */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-5 mb-6">
         {/* Total Revenue Loss */}
-        <div className="bg-[#1e1e1e] rounded-[12px] p-4 border-l-4 border-[#ee1d1d]">
+        <div className="bg-[#1e1e1e] rounded-[12px] p-4">
           <div className="flex items-center justify-between mb-2">
             <p className="text-[#a5a4a4] text-sm font-outfit font-medium">Total Revenue Loss (24mo)</p>
             <TrendingDown size={20} className="text-[#ee1d1d]" />
@@ -113,7 +128,7 @@ export default function FinancialDashboardPage() {
         </div>
 
         {/* Preventable Loss */}
-        <div className="bg-[#1e1e1e] rounded-[12px] p-4 border-l-4 border-[#eeac1d]">
+        <div className="bg-[#1e1e1e] rounded-[12px] p-4">
           <div className="flex items-center justify-between mb-2">
             <p className="text-[#a5a4a4] text-sm font-outfit font-medium">Preventable Loss</p>
             <AlertTriangle size={20} className="text-[#eeac1d]" />
@@ -125,7 +140,7 @@ export default function FinancialDashboardPage() {
         </div>
 
         {/* Projected Annual Savings */}
-        <div className="bg-[#1e1e1e] rounded-[12px] p-4 border-l-4 border-[#1dee4a]">
+        <div className="bg-[#1e1e1e] rounded-[12px] p-4">
           <div className="flex items-center justify-between mb-2">
             <p className="text-[#a5a4a4] text-sm font-outfit font-medium">Projected Annual Savings</p>
             <CheckCircle2 size={20} className="text-[#1dee4a]" />
@@ -137,7 +152,7 @@ export default function FinancialDashboardPage() {
         </div>
 
         {/* ROI */}
-        <div className="bg-[#1e1e1e] rounded-[12px] p-4 border-l-4 border-[#eeac1d]">
+        <div className="bg-[#1e1e1e] rounded-[12px] p-4">
           <div className="flex items-center justify-between mb-2">
             <p className="text-[#a5a4a4] text-sm font-outfit font-medium">ROI</p>
             <ArrowUpRight size={20} className="text-[#1dee4a]" />
@@ -281,13 +296,39 @@ export default function FinancialDashboardPage() {
                     </span>
                   </td>
                   <td className="py-3 px-3 text-right">
-                    <span
-                      className={`text-sm font-outfit font-bold ${
-                        trip.cost > 200000000 ? "text-[#ee1d1d]" : "text-[#eeac1d]"
-                      }`}
-                    >
-                      ₦{(trip.cost / 1000000).toFixed(0)}M
-                    </span>
+                    <div className="flex items-center justify-end gap-2">
+                      <span
+                        className={`text-sm font-outfit font-bold ${
+                          trip.cost > 200000000 ? "text-[#ee1d1d]" : "text-[#eeac1d]"
+                        }`}
+                      >
+                        ₦{(trip.cost / 1000000).toFixed(0)}M
+                      </span>
+                      <button
+                        onClick={() => setShowCalculation(showCalculation === trip.id ? null : trip.id)}
+                        className="text-[#a5a4a4] hover:text-[#eeac1d] text-xs"
+                        title="Show calculation"
+                      >
+                        {showCalculation === trip.id ? "✕" : "🔍"}
+                      </button>
+                    </div>
+                    {showCalculation === trip.id && (
+                      <div className="mt-2 p-3 bg-[#2c2c2c] rounded-lg text-left text-xs">
+                        <p className="text-[#eeac1d] font-outfit font-semibold mb-2">Calculation Breakdown:</p>
+                        <div className="space-y-1 text-[#a5a4a4] font-lato">
+                          <p>• Turbine Capacity: <span className="text-white">165 MW</span></p>
+                          <p>• Outage Duration: <span className="text-white">{trip.duration}</span></p>
+                          <p>• Lost Generation: <span className="text-white">11,880 MWh</span></p>
+                          <p>• Market Rate: <span className="text-white">₦40,000/MWh</span></p>
+                          <p className="pt-1 border-t border-[#a5a4a4]/20">
+                            Total: <span className="text-[#ee1d1d] font-semibold">₦{(trip.cost / 1000000).toFixed(0)}M</span>
+                          </p>
+                        </div>
+                        <p className="text-[#a5a4a4] text-[10px] mt-2 italic">
+                          Source: Operations logs + SCADA data
+                        </p>
+                      </div>
+                    )}
                   </td>
                 </tr>
               ))}

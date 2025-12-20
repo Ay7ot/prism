@@ -350,7 +350,7 @@ function TurbineSection({
               <span className={turbine.type === "Gas Turbine" ? "text-[#ee1d1d]" : "text-[#0062ff]"}>
                 {turbine.metrics.temperature.value}
               </span>{" "}
-              <span className="text-[#a5a4a4]">°F</span>
+              <span className="text-[#a5a4a4]">°C</span>
             </p>
           </div>
           <div className="space-y-0">
@@ -359,7 +359,7 @@ function TurbineSection({
               <span>
                 <span className="text-[#a5a4a4]">&gt;</span>
                 <span className="text-[#eeac1d]"> {turbine.metrics.temperature.high} </span>
-                <span className="text-[#a5a4a4]">°F</span>
+                <span className="text-[#a5a4a4]">°C</span>
               </span>
             </div>
             <div className="flex items-center gap-3.5 text-[12px] font-medium font-outfit">
@@ -367,7 +367,7 @@ function TurbineSection({
               <span>
                 <span className="text-[#a5a4a4]">&lt;</span>
                 <span className="text-[#eeac1d]"> {turbine.metrics.temperature.cool} </span>
-                <span className="text-[#a5a4a4]">°F</span>
+                <span className="text-[#a5a4a4]">°C</span>
               </span>
             </div>
           </div>

@@ -52,7 +52,7 @@ export function TurbineCard({ turbine, onClick }: TurbineCardProps) {
           icon={<Thermometer size={14} />}
           label="Temperature"
           value={`${turbine.metrics.temperature.value}`}
-          unit="°F"
+          unit="°C"
           color={turbine.metrics.temperature.value > 5000 ? "red" : "green"}
         />
         <MetricBox

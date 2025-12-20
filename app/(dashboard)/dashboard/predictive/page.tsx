@@ -3,9 +3,19 @@
 import { useState } from "react";
 import { AlertTriangle, Clock, TrendingUp, Zap, Activity } from "lucide-react";
 import Link from "next/link";
+import { generateCurrentAlerts, preventedTrips, getAlertExplanation } from "@/lib/data/demo-scenarios";
 
-// Predictive alerts with timeline
-const predictiveAlerts = [
+// Use demo scenario data
+const predictiveAlerts = generateCurrentAlerts();
+const preventionStats = {
+  alertsGenerated: 127,
+  tripsPreve: preventedTrips.length,
+  savingsYTD: preventedTrips.reduce((sum, trip) => sum + trip.costAvoided, 0),
+  avgEarlyWarning: Math.round(preventedTrips.reduce((sum, trip) => sum + trip.earlyWarning, 0) / preventedTrips.length),
+};
+
+// Keep old structure for compatibility
+const oldPredictiveAlerts = [
   {
     id: "1",
     asset: "GT21 - Exhaust Temperature Spread",
@@ -17,7 +27,7 @@ const predictiveAlerts = [
     potentialLoss: 450000000,
     recommendation: "Reduce load and schedule immediate inspection",
     indicators: [
-      { metric: "Exhaust Temp Deviation", value: "+42°F", status: "critical" },
+      { metric: "Exhaust Temp Deviation", value: "+23°C", status: "critical" },
       { metric: "Combustion Dynamics", value: "Unstable", status: "critical" },
       { metric: "Fuel Flow Variance", value: "+8%", status: "warning" },
     ],
@@ -50,7 +60,7 @@ const predictiveAlerts = [
     recommendation: "Schedule maintenance within 24 hours",
     indicators: [
       { metric: "Vibration Level", value: "4.2 mm/s", status: "warning" },
-      { metric: "Temperature", value: "+18°F", status: "warning" },
+      { metric: "Temperature", value: "+10°C", status: "warning" },
       { metric: "Oil Particle Count", value: "Elevated", status: "warning" },
     ],
   },
@@ -87,13 +97,6 @@ const predictiveAlerts = [
     ],
   },
 ];
-
-const preventionStats = {
-  alertsGenerated: 127,
-  tripsPreve: 8,
-  savingsYTD: 385000000,
-  avgEarlyWarning: 67, // minutes
-};
 
 export default function PredictiveAnalyticsPage() {
   const [selectedAlert, setSelectedAlert] = useState<string | null>(null);

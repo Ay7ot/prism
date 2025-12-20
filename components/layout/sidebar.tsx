@@ -11,6 +11,8 @@ import {
   BadgeDollarSign,
   Settings,
   Bell,
+  Wind,
+  Target,
 } from "lucide-react";
 
 interface SidebarItem {
@@ -25,7 +27,9 @@ const engineerItems: SidebarItem[] = [
   { icon: Building2, href: "/dashboard/plants", label: "Plants" },
   { icon: Sparkles, href: "/dashboard/predictive", label: "Predictive Analytics" },
   { icon: Activity, href: "/dashboard/asset-health", label: "Asset Health" },
+  { icon: Wind, href: "/dashboard/gas-quality", label: "Gas Quality Monitoring" },
   { icon: BadgeDollarSign, href: "/dashboard/financial", label: "Revenue Protection" },
+  { icon: Target, href: "/dashboard/erpc", label: "ERPC Dashboard" },
   { icon: Bell, href: "/dashboard/notifications", label: "Notifications", badge: 5 },
   { icon: Settings, href: "/dashboard/settings", label: "Settings" },
 ];
@@ -33,8 +37,10 @@ const engineerItems: SidebarItem[] = [
 const executiveItems: SidebarItem[] = [
   { icon: LayoutDashboard, href: "/dashboard/executive", label: "Executive Overview" },
   { icon: BadgeDollarSign, href: "/dashboard/financial", label: "ROI & Revenue" },
+  { icon: Target, href: "/dashboard/erpc", label: "ERPC Dashboard" },
   { icon: Sparkles, href: "/dashboard/predictive", label: "Predictive Analytics" },
   { icon: Activity, href: "/dashboard/asset-health", label: "Asset Health" },
+  { icon: Wind, href: "/dashboard/gas-quality", label: "Gas Quality" },
   { icon: Building2, href: "/dashboard/plants", label: "Plants" },
   { icon: Bell, href: "/dashboard/notifications", label: "Alerts", badge: 8 },
   { icon: Settings, href: "/dashboard/settings", label: "Settings" },

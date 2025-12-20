@@ -2,8 +2,10 @@ export interface Turbine {
   id: string;
   name: string;
   type: "Gas Turbine" | "Steam Turbine";
+  manufacturer: "Siemens Energy" | "GE Gas Power";
   model: string;
   serialNumber: string;
+  controlSystem: string;
   status: "online" | "offline" | "warning";
   capacity: {
     iso: number;
@@ -53,40 +55,70 @@ const createTurbine = (
   id: string,
   name: string,
   type: "Gas Turbine" | "Steam Turbine",
+  manufacturer: "Siemens Energy" | "GE Gas Power",
   status: "online" | "offline" | "warning" = "online"
-): Turbine => ({
-  id,
-  name,
-  type,
-  model: type === "Gas Turbine" ? "GE Frame 9E Turbine" : "GE Steam Turbine",
-  serialNumber: `MX${Math.random().toString().slice(2, 8)}DT`,
-  status,
-  capacity: {
-    iso: type === "Gas Turbine" ? 126 : 80,
-    net: type === "Gas Turbine" ? 102 : 65,
-  },
-  metrics: {
-    generation: {
-      power: type === "Gas Turbine" ? 116 : 118,
-      current: 400,
-      voltage: 400,
+): Turbine => {
+  // Siemens SGT5-2000E for Geregu
+  const isSiemens = manufacturer === "Siemens Energy";
+  const isGasTurbine = type === "Gas Turbine";
+
+  // Generate realistic serial numbers
+  const serialPrefix = isSiemens ? "SGT5" : "GE9E";
+  const serialNumber = `${serialPrefix}-${Math.random().toString().slice(2, 8)}`;
+
+  // Capacity based on actual specifications
+  const capacity = isGasTurbine
+    ? isSiemens
+      ? { iso: 172.5, net: 165 } // SGT5-2000E
+      : { iso: 128, net: 123 } // GE 9E
+    : { iso: 85, net: 80 }; // GE Steam
+
+  // Realistic current generation (80-95% of capacity)
+  const loadFactor = 0.85 + Math.random() * 0.10;
+  const currentPower = Math.round(capacity.iso * loadFactor);
+
+  // Temperature varies by turbine type and load
+  const baseTemp = isGasTurbine ? 540 : 538;
+  const tempVariation = Math.round(Math.random() * 30 - 15);
+  const currentTemp = baseTemp + tempVariation;
+
+  return {
+    id,
+    name,
+    type,
+    manufacturer,
+    model: isGasTurbine
+      ? isSiemens
+        ? "SGT5-2000E"
+        : "GE Frame 9E"
+      : "GE D11 Steam Turbine",
+    serialNumber,
+    controlSystem: isSiemens ? "SPPA-T3000" : "Mark VIe",
+    status,
+    capacity,
+    metrics: {
+      generation: {
+        power: currentPower,
+        current: Math.round(380 + Math.random() * 40),
+        voltage: Math.round(15 + Math.random() * 3),
+      },
+      temperature: {
+        value: currentTemp,
+        high: isGasTurbine ? 600 : 560,
+        cool: isGasTurbine ? 500 : 480,
+      },
+      vibrations: {
+        seismic: Math.round(2.2 + Math.random() * 0.8),
+        acceleration: Math.round(3.5 + Math.random() * 1.0),
+        displacement: Math.round(40 + Math.random() * 20),
+      },
+      pressure: {
+        high: isGasTurbine ? (isSiemens ? 18.4 : 12.6) : 120,
+        low: isGasTurbine ? Math.round(1.0 + Math.random() * 0.3) : 0.05,
+      },
     },
-    temperature: {
-      value: type === "Gas Turbine" ? 6199 : 1299,
-      high: 2400,
-      cool: 900,
-    },
-    vibrations: {
-      seismic: 2400,
-      acceleration: 400,
-      displacement: type === "Gas Turbine" ? 400 : 50,
-    },
-    pressure: {
-      high: 2400,
-      low: 40,
-    },
-  },
-});
+  };
+};
 
 export const plants: Plant[] = [
   {
@@ -101,12 +133,12 @@ export const plants: Plant[] = [
     workforce: 148,
     coordinates: { lat: 5.1167, lng: 7.3667 },
     turbines: [
-      createTurbine("alaoji-gt1", "Turbine 1", "Gas Turbine"),
-      createTurbine("alaoji-gt2", "Turbine 2", "Gas Turbine"),
-      createTurbine("alaoji-gt3", "Turbine 3", "Gas Turbine", "warning"),
-      createTurbine("alaoji-gt4", "Turbine 4", "Gas Turbine"),
-      createTurbine("alaoji-st1", "Turbine 5", "Steam Turbine"),
-      createTurbine("alaoji-st2", "Turbine 6", "Steam Turbine"),
+      createTurbine("alaoji-gt1", "Turbine 1", "Gas Turbine", "GE Gas Power"),
+      createTurbine("alaoji-gt2", "Turbine 2", "Gas Turbine", "GE Gas Power"),
+      createTurbine("alaoji-gt3", "Turbine 3", "Gas Turbine", "GE Gas Power", "warning"),
+      createTurbine("alaoji-gt4", "Turbine 4", "Gas Turbine", "GE Gas Power"),
+      createTurbine("alaoji-st1", "Turbine 5", "Steam Turbine", "GE Gas Power"),
+      createTurbine("alaoji-st2", "Turbine 6", "Steam Turbine", "GE Gas Power"),
     ],
   },
   {
@@ -121,12 +153,12 @@ export const plants: Plant[] = [
     workforce: 165,
     coordinates: { lat: 6.9167, lng: 3.4167 },
     turbines: [
-      createTurbine("olorunsogo-gt1", "Turbine 1", "Gas Turbine"),
-      createTurbine("olorunsogo-gt2", "Turbine 2", "Gas Turbine"),
-      createTurbine("olorunsogo-gt3", "Turbine 3", "Gas Turbine"),
-      createTurbine("olorunsogo-gt4", "Turbine 4", "Gas Turbine"),
-      createTurbine("olorunsogo-st1", "Turbine 5", "Steam Turbine"),
-      createTurbine("olorunsogo-st2", "Turbine 6", "Steam Turbine"),
+      createTurbine("olorunsogo-gt1", "Turbine 1", "Gas Turbine", "GE Gas Power"),
+      createTurbine("olorunsogo-gt2", "Turbine 2", "Gas Turbine", "GE Gas Power"),
+      createTurbine("olorunsogo-gt3", "Turbine 3", "Gas Turbine", "GE Gas Power"),
+      createTurbine("olorunsogo-gt4", "Turbine 4", "Gas Turbine", "GE Gas Power"),
+      createTurbine("olorunsogo-st1", "Turbine 5", "Steam Turbine", "GE Gas Power"),
+      createTurbine("olorunsogo-st2", "Turbine 6", "Steam Turbine", "GE Gas Power"),
     ],
   },
   {
@@ -141,11 +173,11 @@ export const plants: Plant[] = [
     workforce: 132,
     coordinates: { lat: 4.9517, lng: 8.322 },
     turbines: [
-      createTurbine("calabar-gt1", "Turbine 1", "Gas Turbine"),
-      createTurbine("calabar-gt2", "Turbine 2", "Gas Turbine"),
-      createTurbine("calabar-gt3", "Turbine 3", "Gas Turbine"),
-      createTurbine("calabar-gt4", "Turbine 4", "Gas Turbine"),
-      createTurbine("calabar-gt5", "Turbine 5", "Gas Turbine"),
+      createTurbine("calabar-gt1", "Turbine 1", "Gas Turbine", "GE Gas Power"),
+      createTurbine("calabar-gt2", "Turbine 2", "Gas Turbine", "GE Gas Power"),
+      createTurbine("calabar-gt3", "Turbine 3", "Gas Turbine", "GE Gas Power"),
+      createTurbine("calabar-gt4", "Turbine 4", "Gas Turbine", "GE Gas Power"),
+      createTurbine("calabar-gt5", "Turbine 5", "Gas Turbine", "GE Gas Power"),
     ],
   },
   {
@@ -160,9 +192,9 @@ export const plants: Plant[] = [
     workforce: 120,
     coordinates: { lat: 7.4969, lng: 6.7317 },
     turbines: [
-      createTurbine("geregu-gt1", "Turbine 1", "Gas Turbine", "warning"),
-      createTurbine("geregu-gt2", "Turbine 2", "Gas Turbine"),
-      createTurbine("geregu-gt3", "Turbine 3", "Gas Turbine"),
+      createTurbine("geregu-gt1", "Turbine 1", "Gas Turbine", "Siemens Energy", "warning"),
+      createTurbine("geregu-gt2", "Turbine 2", "Gas Turbine", "Siemens Energy"),
+      createTurbine("geregu-gt3", "Turbine 3", "Gas Turbine", "Siemens Energy"),
     ],
   },
   {
@@ -177,10 +209,10 @@ export const plants: Plant[] = [
     workforce: 142,
     coordinates: { lat: 6.7167, lng: 4.7833 },
     turbines: [
-      createTurbine("omotosho-gt1", "Turbine 1", "Gas Turbine"),
-      createTurbine("omotosho-gt2", "Turbine 2", "Gas Turbine"),
-      createTurbine("omotosho-gt3", "Turbine 3", "Gas Turbine"),
-      createTurbine("omotosho-gt4", "Turbine 4", "Gas Turbine"),
+      createTurbine("omotosho-gt1", "Turbine 1", "Gas Turbine", "GE Gas Power"),
+      createTurbine("omotosho-gt2", "Turbine 2", "Gas Turbine", "GE Gas Power"),
+      createTurbine("omotosho-gt3", "Turbine 3", "Gas Turbine", "GE Gas Power"),
+      createTurbine("omotosho-gt4", "Turbine 4", "Gas Turbine", "GE Gas Power"),
     ],
   },
   {
@@ -195,8 +227,8 @@ export const plants: Plant[] = [
     workforce: 85,
     coordinates: { lat: 5.3333, lng: 6.6667 },
     turbines: [
-      createTurbine("omoku-gt1", "Turbine 1", "Gas Turbine"),
-      createTurbine("omoku-gt2", "Turbine 2", "Gas Turbine"),
+      createTurbine("omoku-gt1", "Turbine 1", "Gas Turbine", "GE Gas Power"),
+      createTurbine("omoku-gt2", "Turbine 2", "Gas Turbine", "GE Gas Power"),
     ],
   },
   {
@@ -211,8 +243,8 @@ export const plants: Plant[] = [
     workforce: 95,
     coordinates: { lat: 4.9333, lng: 6.2667 },
     turbines: [
-      createTurbine("gbarain-gt1", "Turbine 1", "Gas Turbine"),
-      createTurbine("gbarain-gt2", "Turbine 2", "Gas Turbine"),
+      createTurbine("gbarain-gt1", "Turbine 1", "Gas Turbine", "GE Gas Power"),
+      createTurbine("gbarain-gt2", "Turbine 2", "Gas Turbine", "GE Gas Power"),
     ],
   },
   {
@@ -227,10 +259,10 @@ export const plants: Plant[] = [
     workforce: 155,
     coordinates: { lat: 5.8833, lng: 5.6833 },
     turbines: [
-      createTurbine("sapele-gt1", "Turbine 1", "Gas Turbine"),
-      createTurbine("sapele-gt2", "Turbine 2", "Gas Turbine"),
-      createTurbine("sapele-gt3", "Turbine 3", "Gas Turbine"),
-      createTurbine("sapele-st1", "Turbine 4", "Steam Turbine"),
+      createTurbine("sapele-gt1", "Turbine 1", "Gas Turbine", "GE Gas Power"),
+      createTurbine("sapele-gt2", "Turbine 2", "Gas Turbine", "GE Gas Power"),
+      createTurbine("sapele-gt3", "Turbine 3", "Gas Turbine", "GE Gas Power"),
+      createTurbine("sapele-st1", "Turbine 4", "Steam Turbine", "GE Gas Power"),
     ],
   },
   {
@@ -245,10 +277,10 @@ export const plants: Plant[] = [
     workforce: 138,
     coordinates: { lat: 6.35, lng: 5.6167 },
     turbines: [
-      createTurbine("ihovbor-gt1", "Turbine 1", "Gas Turbine"),
-      createTurbine("ihovbor-gt2", "Turbine 2", "Gas Turbine"),
-      createTurbine("ihovbor-gt3", "Turbine 3", "Gas Turbine"),
-      createTurbine("ihovbor-gt4", "Turbine 4", "Gas Turbine"),
+      createTurbine("ihovbor-gt1", "Turbine 1", "Gas Turbine", "GE Gas Power"),
+      createTurbine("ihovbor-gt2", "Turbine 2", "Gas Turbine", "GE Gas Power"),
+      createTurbine("ihovbor-gt3", "Turbine 3", "Gas Turbine", "GE Gas Power"),
+      createTurbine("ihovbor-gt4", "Turbine 4", "Gas Turbine", "GE Gas Power"),
     ],
   },
 ];
