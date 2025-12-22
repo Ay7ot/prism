@@ -27,95 +27,101 @@ export function TurbineInfoModal({
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm"
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm p-3 sm:p-4"
       onClick={onClose}
     >
       <div
-        className="bg-[#1e1e1e] rounded-[20px] p-6 w-full max-w-[596px] max-h-[90vh] overflow-y-auto m-4"
+        className="bg-[#1e1e1e] rounded-[16px] sm:rounded-[20px] p-4 sm:p-6 w-full max-w-[596px] max-h-[90vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-center justify-between mb-7">
-          <h2 className="font-poppins text-[32px] text-white font-normal">
+        <div className="flex items-center justify-between mb-4 sm:mb-7">
+          <h2 className="font-poppins text-[22px] sm:text-[32px] text-white font-normal">
             Overview
           </h2>
           <button
             onClick={onClose}
-            className="w-6 h-6 text-white/60 hover:text-white transition-colors"
+            className="w-8 h-8 sm:w-6 sm:h-6 flex items-center justify-center text-white/60 hover:text-white transition-colors"
           >
             <X size={24} />
           </button>
         </div>
 
         {/* Divider */}
-        <div className="h-px bg-[#a5a4a4]/30 mb-7" />
+        <div className="h-px bg-[#a5a4a4]/30 mb-4 sm:mb-7" />
 
         {/* Turbine Info Card */}
-        <div className="border border-[#a5a4a4] rounded-xl p-3 mb-7 flex gap-5">
-          {/* Turbine Icon & Number */}
-          <div className="flex items-center gap-2 shrink-0">
+        <div className="border border-[#a5a4a4] rounded-xl p-3 sm:p-4 mb-4 sm:mb-7">
+          {/* Turbine Icon & Number - Always at top */}
+          <div className="flex items-center gap-2 mb-3 pb-3 border-b border-[#a5a4a4]/30">
             <Chrome size={18} className="text-white" />
             <h3 className="text-white text-[14px] font-medium font-outfit tracking-[-0.154px]">
               Turbine {turbineIndex}
             </h3>
           </div>
 
-          {/* Model & Type */}
-          <div className="flex flex-col gap-1.5 flex-1">
-            <p className="text-white text-[12px] font-medium font-inter tracking-[-0.154px]">
-              {turbine.model}
-            </p>
-            <p className="text-[#eeac1d] text-[11px] font-light font-outfit">
-              {turbine.manufacturer}
-            </p>
-            <p className="text-[#eeac1d] text-[11px] font-light font-outfit">
-              {turbine.type}
-            </p>
-            <p className="text-[#a5a4a4] text-[10px] font-light font-outfit">
-              S/N: {turbine.serialNumber}
-            </p>
-          </div>
+          {/* Info Grid - 2 columns on mobile, 4 on desktop */}
+          <div className="grid grid-cols-2 gap-x-4 gap-y-3 sm:grid-cols-4 sm:gap-4">
+            {/* Model & Type */}
+            <div className="flex flex-col gap-1">
+              <p className="text-[#a5a4a4] text-[10px] uppercase tracking-wider font-outfit">
+                Model
+              </p>
+              <p className="text-white text-[12px] font-medium font-inter tracking-[-0.154px]">
+                {turbine.model}
+              </p>
+              <p className="text-[#eeac1d] text-[11px] font-light font-outfit">
+                {turbine.manufacturer}
+              </p>
+              <p className="text-[#eeac1d] text-[11px] font-light font-outfit">
+                {turbine.type}
+              </p>
+              <p className="text-[#a5a4a4] text-[10px] font-light font-outfit">
+                S/N: {turbine.serialNumber}
+              </p>
+            </div>
 
-          {/* Control System */}
-          <div className="flex flex-col gap-1.5 shrink-0">
-            <p className="text-white text-[12px] font-medium font-inter tracking-[-0.154px]">
-              Control System
-            </p>
-            <p className="text-[#eeac1d] text-[11px] font-light font-outfit">
-              {turbine.controlSystem}
-            </p>
-          </div>
+            {/* Control System */}
+            <div className="flex flex-col gap-1">
+              <p className="text-[#a5a4a4] text-[10px] uppercase tracking-wider font-outfit">
+                Control System
+              </p>
+              <p className="text-[#eeac1d] text-[11px] font-light font-outfit mt-auto">
+                {turbine.controlSystem}
+              </p>
+            </div>
 
-          {/* Status */}
-          <div className="flex flex-col gap-1.5 shrink-0">
-            <p className="text-white text-[12px] font-medium font-inter tracking-[-0.154px]">
-              Status
-            </p>
-            <p
-              className="text-[11px] font-light font-outfit capitalize"
-              style={{ color: statusColor }}
-            >
-              {turbine.status}
-            </p>
-          </div>
+            {/* Status */}
+            <div className="flex flex-col gap-1">
+              <p className="text-[#a5a4a4] text-[10px] uppercase tracking-wider font-outfit">
+                Status
+              </p>
+              <p
+                className="text-[11px] font-light font-outfit capitalize"
+                style={{ color: statusColor }}
+              >
+                {turbine.status}
+              </p>
+            </div>
 
-          {/* Capacity */}
-          <div className="flex flex-col gap-1.5 shrink-0">
-            <p className="text-white text-[12px] font-medium font-inter tracking-[-0.154px]">
-              Capacity
-            </p>
-            <p className="text-[#eeac1d] text-[11px] font-light font-outfit">
-              {turbine.capacity.iso}MW (ISO)
-            </p>
-            <p className="text-[#eeac1d] text-[11px] font-light font-outfit">
-              {turbine.capacity.net}MW (Net)
-            </p>
+            {/* Capacity */}
+            <div className="flex flex-col gap-1">
+              <p className="text-[#a5a4a4] text-[10px] uppercase tracking-wider font-outfit">
+                Capacity
+              </p>
+              <p className="text-[#eeac1d] text-[11px] font-light font-outfit">
+                {turbine.capacity.iso}MW (ISO)
+              </p>
+              <p className="text-[#eeac1d] text-[11px] font-light font-outfit">
+                {turbine.capacity.net}MW (Net)
+              </p>
+            </div>
           </div>
         </div>
 
         {/* Description Section */}
-        <div className="border-l-[1px] border-[#ffc34d] pl-6 py-2 mb-7">
-          <p className="font-poppins text-[16px] text-[#b0b0b0] font-medium leading-normal">
+        <div className="border-l-[2px] border-[#ffc34d] pl-4 sm:pl-6 py-2 mb-4 sm:mb-7">
+          <p className="font-poppins text-[13px] sm:text-[16px] text-[#b0b0b0] font-medium leading-relaxed">
             Each turbine within the plant is managed by a dedicated technical
             team. Roles have been assigned to ensure efficient operation, timely
             maintenance, and accurate monitoring of performance data. Review the
@@ -124,13 +130,13 @@ export function TurbineInfoModal({
         </div>
 
         {/* Roles Section */}
-        <div className="px-6 py-2 space-y-3 mb-7">
+        <div className="px-0 sm:px-6 py-2 space-y-4 sm:space-y-3 mb-4 sm:mb-7">
           {/* Operations Supervisor */}
           <div>
-            <h4 className="text-[#ffc34d] font-poppins text-[16px] font-medium mb-1">
+            <h4 className="text-[#ffc34d] font-poppins text-[14px] sm:text-[16px] font-medium mb-1">
               Operations Supervisor
             </h4>
-            <p className="text-white font-poppins text-[16px] font-medium leading-normal">
+            <p className="text-white font-poppins text-[13px] sm:text-[16px] font-medium leading-relaxed">
               Oversees daily turbine operations, monitors performance indicators,
               coordinates with control room operators, ensures all operational
               procedures are followed, and manages reporting shifts.
@@ -139,10 +145,10 @@ export function TurbineInfoModal({
 
           {/* Maintenance Engineer */}
           <div>
-            <h4 className="text-[#ffc34d] font-poppins text-[16px] font-medium mb-1">
+            <h4 className="text-[#ffc34d] font-poppins text-[14px] sm:text-[16px] font-medium mb-1">
               Maintenance Engineer
             </h4>
-            <p className="text-white font-poppins text-[16px] font-medium leading-normal">
+            <p className="text-white font-poppins text-[13px] sm:text-[16px] font-medium leading-relaxed">
               Conducts preventive and corrective maintenance activities, reviews
               vibration and temperature trends, schedules part replacements, and
               ensures turbine reliability and safety compliance.
@@ -151,7 +157,7 @@ export function TurbineInfoModal({
         </div>
 
         {/* Turbine Image */}
-        <div className="w-full h-[222px] rounded-lg overflow-hidden bg-[#2c2c2c]">
+        <div className="w-full rounded-lg overflow-hidden bg-[#2c2c2c]">
           <img
             src="/turbine.png"
             alt={`${turbine.name} - ${turbine.type}`}
