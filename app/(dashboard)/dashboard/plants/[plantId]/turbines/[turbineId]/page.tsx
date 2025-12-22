@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { getPlantById } from "@/lib/data/plants";
 import { engineerAlerts } from "@/lib/data/alerts";
 import { ArrowLeft, Zap, Thermometer, Activity, Gauge } from "lucide-react";
-import { PrismIcon } from "@/components/ui/prism-logo";
+import { IrisIcon } from "@/components/ui/iris-logo";
 import { AIAlertsList } from "@/components/dashboard/ai-alert-card";
 import { AlertsTrendChart } from "@/components/dashboard/alerts-trend-chart";
 import Image from "next/image";
@@ -86,7 +86,7 @@ export default function TurbineDetailPage({
                                 </svg>
                             </button>
                             <button className="flex items-center gap-2 lg:gap-3 px-4 lg:px-6 py-2.5 lg:py-3.5 rounded-xl bg-[#eeac1d] text-[#2c2c2c] text-sm lg:text-base font-medium font-outfit hover:bg-[#ffc34d] transition-colors">
-                                <PrismIcon color="white" size={24} className="text-[#2c2c2c] lg:w-[30px] lg:h-[30px]" />
+                                <IrisIcon color="white" size={24} className="text-[#2c2c2c] lg:w-[30px] lg:h-[30px]" />
                                 <span className="hidden lg:inline">AI Alerts</span>
                             </button>
                         </div>

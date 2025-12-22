@@ -16,7 +16,7 @@ import {
   X,
 } from "lucide-react";
 import { Tooltip } from "@/components/ui/tooltip";
-import { PrismLogo } from "@/components/ui/prism-logo";
+import { IrisLogo } from "@/components/ui/iris-logo";
 
 interface SidebarItem {
   icon: React.ElementType;
@@ -116,7 +116,7 @@ export function Sidebar({ variant = "engineer", isOpen = false, onClose }: Sideb
       >
         {/* Mobile Header */}
         <div className="flex items-center justify-between px-6 py-6 border-b border-white/10">
-          <PrismLogo width={100} height={29} />
+          <IrisLogo width={100} height={29} />
           <button
             onClick={onClose}
             className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center text-white/60 hover:text-white hover:bg-white/10 transition-colors"

@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 import { demoCredentials } from "@/lib/data/users";
 import { UserOctagon } from "@/components/ui/user-octagon";
+import { IrisLogo } from "@/components/ui/iris-logo";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -36,15 +36,9 @@ export default function LoginPage() {
     <div className="min-h-screen w-full bg-[#111] overflow-hidden">
       {/* Desktop Layout - Side by side */}
       <div className="login-desktop min-h-screen">
-        {/* Left Panel - Image Background (already contains PRISM logo) */}
-        <div className="w-1/2 relative">
-          <Image
-            src="/login.png"
-            alt="PRISM Background"
-            fill
-            className="object-cover object-center"
-            priority
-          />
+        {/* Left Panel - Branded Background */}
+        <div className="w-1/2 relative overflow-hidden">
+          <BrandedPanel />
         </div>
 
         {/* Right Panel - Login Form */}
@@ -65,15 +59,9 @@ export default function LoginPage() {
 
       {/* Mobile Layout - Stacked */}
       <div className="login-mobile flex-col min-h-screen">
-        {/* Top - Image Background (already contains PRISM logo) */}
-        <div className="h-[495px] relative shrink-0">
-          <Image
-            src="/imobilelogin.png"
-            alt="PRISM Background"
-            fill
-            className="object-cover"
-            priority
-          />
+        {/* Top - Branded Background */}
+        <div className="h-[495px] relative shrink-0 overflow-hidden">
+          <BrandedPanel isMobile />
         </div>
 
         {/* Bottom - Login Card */}
@@ -92,6 +80,127 @@ export default function LoginPage() {
           />
         </div>
       </div>
+    </div>
+  );
+}
+
+// Branded Panel Component - replaces the static images
+function BrandedPanel({ isMobile = false }: { isMobile?: boolean }) {
+  return (
+    <div className="absolute inset-0 flex items-center justify-center">
+      {/* Multi-layer Gradient Background */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background: `
+            radial-gradient(ellipse 80% 50% at 20% 40%, rgba(255, 215, 100, 0.9) 0%, transparent 50%),
+            radial-gradient(ellipse 60% 80% at 80% 80%, rgba(212, 148, 10, 0.8) 0%, transparent 50%),
+            radial-gradient(ellipse 100% 100% at 50% 0%, rgba(255, 195, 77, 0.6) 0%, transparent 60%),
+            linear-gradient(160deg, #f5c842 0%, #eeac1d 25%, #d4940a 50%, #c4850a 75%, #a36d08 100%)
+          `,
+        }}
+      />
+
+      {/* Animated Shimmer Overlay */}
+      <div
+        className="absolute inset-0 opacity-30"
+        style={{
+          background: `
+            linear-gradient(
+              105deg,
+              transparent 20%,
+              rgba(255, 255, 255, 0.15) 35%,
+              rgba(255, 255, 255, 0.25) 50%,
+              rgba(255, 255, 255, 0.15) 65%,
+              transparent 80%
+            )
+          `,
+        }}
+      />
+
+      {/* Decorative mesh pattern */}
+      <div
+        className="absolute inset-0 opacity-[0.04]"
+        style={{
+          backgroundImage: `
+            linear-gradient(0deg, transparent 24%, rgba(255,255,255,0.8) 25%, rgba(255,255,255,0.8) 26%, transparent 27%, transparent 74%, rgba(255,255,255,0.8) 75%, rgba(255,255,255,0.8) 76%, transparent 77%),
+            linear-gradient(90deg, transparent 24%, rgba(255,255,255,0.8) 25%, rgba(255,255,255,0.8) 26%, transparent 27%, transparent 74%, rgba(255,255,255,0.8) 75%, rgba(255,255,255,0.8) 76%, transparent 77%)
+          `,
+          backgroundSize: "80px 80px",
+        }}
+      />
+
+      {/* Decorative Elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        {/* Top right glow */}
+        <div
+          className="absolute"
+          style={{
+            width: isMobile ? "500px" : "800px",
+            height: isMobile ? "500px" : "800px",
+            background: "radial-gradient(circle, rgba(255,235,180,0.4) 0%, rgba(255,215,100,0.1) 40%, transparent 70%)",
+            top: isMobile ? "-250px" : "-400px",
+            right: isMobile ? "-200px" : "-300px",
+          }}
+        />
+        {/* Bottom left warm glow */}
+        <div
+          className="absolute"
+          style={{
+            width: isMobile ? "400px" : "600px",
+            height: isMobile ? "400px" : "600px",
+            background: "radial-gradient(circle, rgba(196,133,10,0.5) 0%, rgba(163,109,8,0.2) 40%, transparent 70%)",
+            bottom: isMobile ? "-150px" : "-200px",
+            left: isMobile ? "-150px" : "-200px",
+          }}
+        />
+        {/* Center highlight */}
+        <div
+          className="absolute"
+          style={{
+            width: isMobile ? "300px" : "500px",
+            height: isMobile ? "300px" : "500px",
+            background: "radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 60%)",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+          }}
+        />
+      </div>
+
+      {/* Logo Container */}
+      <div className="relative z-10 flex flex-col items-center gap-6">
+        <IrisLogo
+          width={isMobile ? 200 : 280}
+          height={isMobile ? 70 : 95}
+          color="white"
+        />
+
+        {/* Tagline */}
+        <p
+          className="text-white/90 text-center px-8 drop-shadow-sm hidden md:block"
+          style={{
+            fontFamily: "var(--font-outfit)",
+            fontSize: isMobile ? "14px" : "18px",
+            fontWeight: 400,
+            letterSpacing: "1px",
+            maxWidth: isMobile ? "280px" : "400px",
+            textShadow: "0 1px 2px rgba(0,0,0,0.1)",
+          }}
+        >
+          Intelligent Reliability Insight System
+        </p>
+      </div>
+
+      {/* Bottom Gradient Fade (for mobile) */}
+      {isMobile && (
+        <div
+          className="absolute bottom-0 left-0 right-0 h-32"
+          style={{
+            background: "linear-gradient(to top, rgba(17,17,17,0.8) 0%, transparent 100%)",
+          }}
+        />
+      )}
     </div>
   );
 }

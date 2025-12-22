@@ -4,7 +4,7 @@ import { useState } from "react";
 import { NigeriaMapReal } from "@/components/executive/nigeria-map-real";
 import { plants, getTotalStats } from "@/lib/data/plants";
 import { Sparkles, AlertTriangle, TrendingUp, TrendingDown } from "lucide-react";
-import { PrismIcon } from "@/components/ui/prism-logo";
+import { IrisIcon } from "@/components/ui/iris-logo";
 import Link from "next/link";
 
 // Mock data for staff leaderboard
@@ -167,14 +167,14 @@ export default function ExecutiveDashboardPage() {
                       href={`/dashboard/plants/${currentPlant.id}`}
                       className="flex-1 bg-[#eeac1d] h-[41px] rounded-[12px] flex items-center justify-center gap-3 hover:bg-[#ffc34d] transition-colors"
                     >
-                      <PrismIcon size={21} className="text-[#2c2c2c]" />
+                      <IrisIcon size={21} className="text-[#2c2c2c]" />
                       <span className="text-[#2c2c2c] text-base font-outfit font-medium">AI Alerts</span>
                     </Link>
                     <Link
                       href={`/dashboard/plants/${currentPlant.id}`}
                       className="flex-1 bg-[#357036] h-[41px] rounded-[12px] flex items-center justify-center gap-3 hover:bg-[#4a8a4d] transition-colors"
                     >
-                      <PrismIcon color="white" size={21} />
+                      <IrisIcon color="white" size={21} />
                       <span className="text-white text-base font-outfit font-medium">AI Alerts</span>
                     </Link>
                   </div>

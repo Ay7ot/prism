@@ -3,7 +3,7 @@
 import { cn } from "@/lib/utils";
 import { Search, Bell, ChevronDown, Menu } from "lucide-react";
 import Link from "next/link";
-import { PrismLogo } from "@/components/ui/prism-logo";
+import { IrisLogo } from "@/components/ui/iris-logo";
 
 interface TopbarProps {
   userName?: string;
@@ -29,7 +29,7 @@ export function Topbar({
     >
       {/* Logo */}
       <Link href="/dashboard" className="flex items-center">
-        <PrismLogo width={127} height={37} />
+        <IrisLogo width={127} height={37} />
       </Link>
 
       {/* Right Side */}
