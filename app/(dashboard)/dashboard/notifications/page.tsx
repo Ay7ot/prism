@@ -88,7 +88,7 @@ export default function NotificationsPage() {
                             }`}
                     >
                         <div className="flex items-start gap-4">
-                            <div className="flex-shrink-0 mt-1">
+                            <div className="shrink-0 mt-1">
                                 {getIcon(notification.type)}
                             </div>
                             <div className="flex-1 min-w-0">
@@ -101,7 +101,7 @@ export default function NotificationsPage() {
                                         {notification.title}
                                     </h3>
                                     {!notification.read && (
-                                        <span className="flex-shrink-0 w-2 h-2 rounded-full bg-[#eeac1d]" />
+                                        <span className="shrink-0 w-2 h-2 rounded-full bg-[#eeac1d]" />
                                     )}
                                 </div>
                                 <p
@@ -123,7 +123,7 @@ export default function NotificationsPage() {
             </div>
 
             {/* Coming Soon Banner */}
-            <div className="mt-8 bg-gradient-to-r from-[#eeac1d]/10 to-transparent rounded-2xl p-6 border border-[#eeac1d]/20">
+            <div className="mt-8 bg-linear-to-r from-[#eeac1d]/10 to-transparent rounded-2xl p-6 border border-[#eeac1d]/20">
                 <p
                     className="text-[#eeac1d] text-sm font-medium mb-1"
                     style={{ fontFamily: "var(--font-outfit)" }}
