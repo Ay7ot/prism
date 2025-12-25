@@ -27,7 +27,7 @@ export function TurbineInfoModal({
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm p-3 sm:p-4"
+      className="fixed inset-0 z-100 flex items-center justify-center bg-black/60 backdrop-blur-sm p-3 sm:p-4"
       onClick={onClose}
     >
       <div
@@ -120,7 +120,7 @@ export function TurbineInfoModal({
         </div>
 
         {/* Description Section */}
-        <div className="border-l-[2px] border-[#ffc34d] pl-4 sm:pl-6 py-2 mb-4 sm:mb-7">
+        <div className="border-l-2 border-[#ffc34d] pl-4 sm:pl-6 py-2 mb-4 sm:mb-7">
           <p className="font-poppins text-[13px] sm:text-[16px] text-[#b0b0b0] font-medium leading-relaxed">
             Each turbine within the plant is managed by a dedicated technical
             team. Roles have been assigned to ensure efficient operation, timely

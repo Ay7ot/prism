@@ -65,7 +65,7 @@ export default function LoginPage() {
         </div>
 
         {/* Bottom - Login Card */}
-        <div className="flex-1 flex justify-center bg-[#111] backdrop-blur-[11px] -mt-56 rounded-xl mx-5 px-2 py-12">
+        <div className="flex-1 flex justify-center bg-[#111] backdrop-blur-[11px] -mt-46 rounded-xl mx-5 px-2 py-12">
           <LoginForm
             workId={workId}
             setWorkId={setWorkId}
